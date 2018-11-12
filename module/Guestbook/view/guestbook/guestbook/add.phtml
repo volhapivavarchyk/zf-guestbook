@@ -1,0 +1,109 @@
+<?php
+// module/Album/view/album/album/add.phtml:
+
+    $title = 'Добавить новое сообщение';
+    $this->headTitle($title);
+    $this->headLink()->appendStylesheet('/css/style.css');
+    $this->headLink()->appendStylesheet('/css/lightbox.css');
+    $this->headLink()->appendStylesheet('/css/lightbox.min.css');
+    $this->headScript()->appendFile('/js/functions.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/lightbox.js', 'text/javascript');
+?>
+
+<div class="box grid-add-message">
+    <h2><?= $this->escapeHtml($title) ?></h2>
+
+<?php
+    $name = $form->get('name');
+    $name->setAttribute('placeholder', 'Фамилия Имя Отчество');
+
+    $email = $form->get('email');
+    $email->setAttribute('placeholder', 'mailbox@hostname');
+
+    $theme = $form->get('theme');
+    $theme->setAttribute('placeholder', 'Тема сообщения');
+
+    $text = $form->get('text');
+    $text->setAttribute('placeholder', 'Текст сообщения');
+    $text->setAttribute('COLS','46')->setAttribute('ROWS','8');
+    $formatA = $form->get('formatA');
+    $formatA->setAttribute('onClick', "formatTextArea('a')")->setAttribute('style', 'margin-left:205px; margin-top: 3px;');
+    $formatCode = $form->get('formatCode');
+    $formatCode->setAttribute('onClick', "formatTextArea('code')");
+    $formatItalic = $form->get('formatItalic');
+    $formatItalic->setAttribute('onClick', "formatTextArea('italic')");
+    $formatStrike = $form->get('formatStrike');
+    $formatStrike->setAttribute('onClick', "formatTextArea('strike')");
+    $formatStronge = $form->get('formatStronge');
+    $formatStronge->setAttribute('onClick', "formatTextArea('stronge')");
+    $previewButton = $form->get('previewButton');
+
+    $pictures = $form->get('pictures');
+    //$pictures->addValidator('Size', false, 1024000)->addValidator('Extension', false, 'jpg,png,gif');
+
+    $filepath = $form->get('filepath');
+    $filepath->setAttribute('accept', '.txt');
+    //$filepath->addValidator('Extension', false, 'txt');
+
+    $send = $form->get('send');
+
+    $throw = $form->get('throw');
+
+    $form->setAttribute('action', $this->url('guestbook', ['action' => 'add']));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+?>
+
+    <div class = "add-message-field">
+        <?= $this->formLabel($name) ?>
+        <?= $this->formElement($name) ?>
+        <?= $this->formElementErrors()->render($name, ['class' => 'help-block']) ?>
+    </div>
+    <div class = "add-message-field">
+        <?= $this->formLabel($email) ?>
+        <?= $this->formElement($email) ?>
+        <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+    </div>
+    <div class = "add-message-field">
+        <?= $this->formLabel($theme) ?>
+        <?= $this->formElement($theme) ?>
+        <?= $this->formElementErrors()->render($theme, ['class' => 'help-block']) ?>
+    </div>
+    <div class="add-message-box-field">
+        <div class = "add-message-field">
+            <?= $this->formLabel($text) ?>
+            <?= $this->formElement($text) ?>
+            <?= $this->formElementErrors()->render($text, ['class' => 'help-block']) ?>
+            <br />
+            <?= $this->formButton($formatA, "link") ?>
+            <?= $this->formButton($formatCode, "code") ?>
+            <?= $this->formButton($formatItalic, "italic") ?>
+            <?= $this->formButton($formatStrike, "strike") ?>
+            <?= $this->formButton($formatStronge, "stronge") ?>
+            <?= $this->formButton($previewButton, "Отобразить") ?>
+        </div>
+        <div id="preview-message" class = "add-message-field preview-message"></div>
+    </div>
+    <div class = "add-message-field">
+        <?= $this->formLabel($pictures) ?>
+        <?= $this->formElement($pictures) ?>
+        <?= $this->formElementErrors()->render($pictures, ['class' => 'help-block']) ?>
+        <span id="fileinfo-img"></span>
+    </div>
+    <div class = "add-message-field">
+        <?= $this->formLabel($filepath) ?>
+        <?= $this->formElement($filepath) ?>
+        <?= $this->formElementErrors()->render($filepath, ['class' => 'help-block']) ?>
+        <span id="fileinfo-file"></span>
+    </div>
+    <div class = "add-message-button">
+        <?= $this->formSubmit($send) ?>
+        <?= $this->formSubmit($throw) ?>
+    </div>
+    <div class = "add-message-field service-info"></div>
+    <?= $this->form()->closeTag() ?>
+    <p>
+        &nbsp;&nbsp;&nbsp;<a href="<?= $this->url('guestbook') ?>">Вернуться к списку </a>
+    </p>
+</div>

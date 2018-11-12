@@ -1,0 +1,128 @@
+<?php
+    $title = "Гостевая книга";
+    $this->headTitle($title);
+    $this->headLink()->appendStylesheet('/css/style.css');
+    $this->headLink()->appendStylesheet('/css/lightbox.css');
+    $this->headLink()->appendStylesheet('/css/lightbox.min.css');
+    $this->headScript()->appendFile('/js/functions.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/lightbox.js', 'text/javascript');
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<?php
+    $name_desc = $form->get('name_desc');
+    $attr_src = !strcmp($name_desc->getValue(), $sort) ? "img/double-up.png" : "img/double-up-not.png";
+    $name_desc->setAttribute('src', $attr_src);
+
+    $name_asc = $form->get('name_asc');
+    $attr_src = !strcmp($name_asc->getValue(), $sort) ? "img/double-down.png" : "img/double-down-not.png";
+    $name_asc->setAttribute('src', $attr_src);
+
+    $email_desc = $form->get('email_desc');
+    $attr_src = !strcmp($email_desc->getValue(), $sort) ? "img/double-up.png" : "img/double-up-not.png";
+    $email_desc->setAttribute('src', $attr_src);
+
+    $email_asc = $form->get('email_asc');
+    $attr_src = !strcmp($email_asc->getValue(), $sort) ? "img/double-down.png" : "img/double-down-not.png";
+    $email_asc->setAttribute('src', $attr_src);
+
+    $date_desc = $form->get('date_desc');
+    $attr_src = !strcmp($date_desc->getValue(), $sort) ? "img/double-up.png" : "img/double-up-not.png";
+    $date_desc->setAttribute('src', $attr_src);
+
+    $date_asc = $form->get('date_asc');
+    $attr_src = !strcmp($date_asc->getValue(), $sort) ? "img/double-down.png" : "img/double-down-not.png";
+    $date_asc->setAttribute('src', $attr_src);
+
+    $form->setAttribute('action', $this->url('guestbook'));
+    $form->prepare();
+?>
+
+<p>
+     <a href="<?= $this->url('guestbook', ['action' => 'add']) ?>"> Добавить сообщение </a>
+</p>
+<!-- Вывод списка сообщений с учетом заданной сортировки -->
+    <div class="box grid-list-messages">
+        <?= $this->form()->openTag($form) ?>
+            <div class="title-message">
+                <h4 class = "title-message-fields"> Имя </h4>
+                <div class="arrows-title-message">
+                    <div><?= $this->formImage($name_desc) ?></div>
+                    <div><?= $this->formImage($name_asc) ?></div>
+                </div>
+                <h4 class = "title-message-fields"> E-mail </h4>
+                <div class="arrows-title-message">
+                    <div><?= $this->formImage($email_desc) ?></div>
+                    <div><?= $this->formImage($email_asc) ?></div>
+                </div>
+                <h4 class = "title-message-fields"> Дата добавления </h4>
+                <div class="arrows-title-message">
+                    <div><?= $this->formImage($date_desc) ?></div>
+                    <div><?= $this->formImage($date_asc) ?></div>
+                </div>
+            </div>
+        <?= $this->form()->closeTag() ?>
+        <!-- Номера страниц для отображения выборки постранично -->
+        <div class="title-message">
+            <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+                <?php if ($i == 1): ?>
+                    <div id="number<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
+                <?php else: ?>
+                    <div id="number<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
+                <?php endif;?>
+                    <a href=# onClick=viewMessages(<?=$i ?>,<?=count($blocksOfMessages)?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
+                    </div>
+           <?php endfor;?>
+       </div>
+       <!-- End Номера страниц для отображения выборки постранично -->
+       <?php
+           $i=1;
+           $visable="";
+       ?>
+       <?php foreach($blocksOfMessages as $blockOfMessages): ?>
+           <div id="visability<?= $i; ?>" <?= $visable; ?>>
+               <?php foreach ($blockOfMessages as $message): ?>
+                   <div class = "box-message">
+                       <div class="title-message">
+                           <div><?= htmlentities($message->theme) ?></div>
+                           <div class = "title-message-fields" style = "margin-left: auto;"><?= htmlentities($message->name) ?></div>&nbsp;&brvbar;&nbsp;
+                           <div class = "title-message-fields"><?= htmlentities($message->email) ?></div>&nbsp;&brvbar;&nbsp;
+                           <div class = "title-message-fields"><?= htmlentities($message->date) ?></div>
+                       </div>
+                       <div class="text-message">
+                           <p><?= $message->text ?></p>
+                           <?php if ($message->pictures || $message->filepath): ?>
+                               <p style = "padding: 2px; margin: 0px;">
+                                   <?php if ($message->pictures): ?>
+                                       <a href="img/upload/<?= htmlentities($message->pictures) ?>" class="example-image-link" data-lightbox="image-1">
+                                       <img class="example-image" src="img/upload/small/<?= htmlentities($message->pictures)?>" alt="<?= htmlentities($message->pictures)?>" /></a>&nbsp;&nbsp;
+                                   <?php endif; ?>
+                                   <?php if ($message->filepath): ?>
+                                       <a href = "files/<?= htmlentities($message->filepath) ?>" type="application/file" style = "text-decoration: none;"><?= htmlentities(basename($message->filepath)) ?></a>
+                                   <?php endif; ?>
+                               </p>
+                          <?php endif; ?>
+                       </div>
+                   </div>
+               <?php endforeach; ?>
+               <?php
+                   $i += 1;
+                   $visable = "class = 'displayNone'";
+               ?>
+           </div>
+       <?php endforeach; ?>
+       <form>
+       <!-- Номера страниц для отображения выборки постранично -->
+           <div class="title-message">
+               <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+                   <?php if ($i == 1): ?>
+                       <div id="number_foot<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
+                   <?php else: ?>
+                       <div id="number_foot<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
+                   <?php endif;?>
+                       <a href=# onClick=viewMessages(<?= $i ?>,<?= count($blocksOfMessages) ?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
+                       </div>
+               <?php endfor;?>
+           </div>
+       <!-- End Номера страниц для отображения выборки постранично -->
+       </form>

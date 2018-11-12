@@ -1,1 +1,1 @@
-# zf-guestbook
+# Zend Framework Guestbook

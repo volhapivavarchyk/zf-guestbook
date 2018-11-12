@@ -1,0 +1,231 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.zf-green {
+    color: #68b604;
+}
+
+.btn-success {
+    background-color: #57a900;
+    background-image: -moz-linear-gradient(top, #70d900, #57a900);
+    background-image: -ms-linear-gradient(top, #70d900, #57a900);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
+    background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+    background-image: -o-linear-gradient(top, #70d900, #57a900);
+    background-image: linear-gradient(top, #70d900, #57a900);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+    background-color: #57a900;
+}
+
+div.container a.navbar-brand > img {
+    display: inline;
+    margin-right: 4px;
+    margin-top: -2px;
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Space Mono'), local('SpaceMono-Regular'), url(https://fonts.gstatic.com/s/spacemono/v1/adVweg3BJhE6r8jYmXseHQzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Space Mono Bold'), local('SpaceMono-Bold'), url(https://fonts.gstatic.com/s/spacemono/v1/vdpMRWfyjfCvDYTz00NEPGaVI6zN22yiurzcBKxPjFE.woff2) format('woff2');
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: maroon;
+  font-size: 14px;
+  background-color: white;
+}
+h1 {
+  font-family: "Space Mono";
+  font-size: 28px;
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333333;
+  padding-left: 20px;
+  font-style: oblique;
+}
+/* разметка страницы */
+.grid {
+  display: grid;
+  grid-template: 70px 520px 1fr 50px / 1fr 10fr 1fr;
+  grid-row-gap: 10px;
+}
+.grid-header {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
+.grid-add-message {
+  grid-row: 2 / span 1;
+  grid-column: 2 /span 1;
+}
+.grid-list-messages {
+  grid-row: 3 / span 1;
+  grid-column: 2 / span 1;
+}
+.grid-footer {
+  grid-row: 4 /  span 1;
+  grid-column: 2 / span 1;
+}
+/*-----------------------*/
+/* отображение блоков */
+.box {
+  background-color: #F5F5F5;
+  color: black;
+  border-radius: 4px;
+  border: 1px #A9A9A9 solid;
+}
+.box-message {
+  background-color: #F5F5F5;
+  color: black;
+  border-radius: 4px;
+  border: 1px #DCDCDC solid;
+  margin: 4px 4px;
+}
+/*-----------------------*/
+/* Отображение текста заголовка и подвала */
+.text-header {
+}
+.text-footer {
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: right;
+  padding-right: 10px;
+}
+/*-----------------------*/
+/* Выравнивание полей формы */
+form .add-message {
+  width: 600px;
+  overflow:hidden;
+  padding: 2px;
+}
+form .add-message-box-field {
+  display:flex;
+  display: inline-flex;
+  align-items: stretch;
+}
+form .add-message-field {
+  margin: 10px 10px;
+}
+form .preview-message {
+  margin: 10px 10px;
+  border: 1px #A9A9A9 solid;
+  width: 300px;
+  height: 130px;
+  border-radius: 5px;
+  flex: auto;
+  padding: 7px;
+  display:none;
+  opacity: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+form .add-message-button {
+  margin-left: 115px;
+}
+form .add-message-captcha {
+  margin-left: 215px;
+  margin-bottom: 10px;
+}
+form label {
+  float:left;
+  width:200px;
+  color: #555555;
+  text-align: right;
+  font-weight: bold;
+  position: relative;
+  top: 2px;
+  margin-right: 5px;
+}
+form input[type=text], form input[type=email] {
+  width: 200px;
+  background: #fff;
+  border: 1px solid #7f9db9;
+  height: 20px;
+}
+form input[type=submit] {
+  display: inline-block;
+  background-color: #CCCCCC;
+  border:1px solid #999999;
+  border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  width: 100;
+  height: 25;
+  color: #000000;
+  font-family: Arial;
+  font-size: 12px;
+}
+form input[type=submit]:hover {
+  border:1px solid #777777;
+  background-color: #999999;
+}
+form input[type=submit]:active {
+  border:1px solid #777777;
+  background-color: #999999;
+}
+input: focus + label, textarea: focus + label {
+  color: #993;
+}
+/*-----------------------*/
+/* Выравнивание элементов списка сообщений */
+.title-message {
+  display:flex;
+  align-items:center;
+  justify-content: flex-end;
+  height:20px;
+  padding: 5px;
+  color: #333333;
+  font-weight: 600;
+}
+.title-message-fields {
+  font-size: 12px;
+  font-weight: 600;
+}
+.arrows-title-message {
+  flex-direction: column;
+  margin-left: 4px;
+  margin-right: 8px;
+}
+.text-message {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/*-----------------------------------*/
+.displayNone {
+  display: none;
+}
+#fileinfo-img, #fileinfo-file {
+  margin-left: 5px;
+}
+.service-info {
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  text-align: left;
+  color: red;
+  padding-right: 10px;
+}
